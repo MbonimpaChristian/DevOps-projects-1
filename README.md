@@ -63,3 +63,7 @@ git push -u origin ft/pipeline.
 
 
 
+Project maintained by DevOps Team.
+$ git add .
+$ git commit -m "docs: update project ownership"
+$ git push
