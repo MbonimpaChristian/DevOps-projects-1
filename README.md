@@ -51,6 +51,15 @@ git push origin --delete test
 git checkout -b ft/setup
 $ echo "Meaningful placeholder" > test.java
 $ touch test.java
+$ git add test.java
+$ git status
+On branch ft/setup
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   test.java
+$ git commit -m "feat(setup): add initial test.java file"
+
+
 ```
 
 ### 5. Git Stash Usage
