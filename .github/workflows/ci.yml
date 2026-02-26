@@ -1,20 +1,12 @@
 name: Java CI with Playwright
 
+# Trigger pipeline on any branch push or pull request
 on:
   push:
     branches:
-    - main
-    - dev
-    - ft/setup
-    - ft/pipeline
       - '**'
   pull_request:
     branches:
-     - main
-      - dev
-      - ft/setup
-      - ft/pipeline
-
       - '**'
 
 jobs:
@@ -22,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      #  Checkout repository
-      - name: Checkout source code
+      # 1️⃣ Checkout the repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      #  Setup Java
+      # 2️⃣ Setup Java 17
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
@@ -34,19 +26,23 @@ jobs:
           java-version: '17'
           cache: maven
 
-      #  Install Maven dependencies
+      # 3️⃣ Verify project structure (debugging step)
+      - name: Verify repository files
+        run: ls -R
+
+      # 4️⃣ Install Maven dependencies (skip tests for speed)
       - name: Install dependencies
         run: mvn clean install -DskipTests
 
-      #  Install Playwright browsers (CRITICAL for UI tests)
+      # 5️⃣ Install Playwright browsers (needed for Chromium)
       - name: Install Playwright Browsers
         run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install"
 
-      #  Run tests
+      # 6️⃣ Run tests (TestNG + Playwright)
       - name: Run Tests
         run: mvn test
 
-      # Upload Test Reports (Even if tests fail)
+      # 7️⃣ Upload Test Reports (even if tests fail)
       - name: Upload Surefire Reports
         if: always()
         uses: actions/upload-artifact@v4
