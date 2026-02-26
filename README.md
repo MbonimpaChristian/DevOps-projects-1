@@ -20,13 +20,13 @@ git remote add origin  https://github.com/MbonimpaChristian/DevOps-projects-1
 git push -u origin main
 ```
 
-### 2. Created dev branch
+# 3. Created dev branch
 ```bash
 git checkout -b dev
 git push -u origin dev
 ```
 
-### 3. Created and deleted test branch
+# 4. Created and deleted test branch
 ```bash
 git checkout -b test
 $ echo "Testing branch" > test.tx
@@ -42,11 +42,73 @@ $ git commit -m "test: temporary branch testing"
  create mode 100644 .idea/vcs.xml
  create mode 100644 test.tx
 git checkout dev
-git branch -d test
+git branch -D test
 git push origin --delete test
 ```
 
-### 4. Feature Branch Creation
+# 5. Feature Branch Creation
 ```bash
 git checkout -b ft/setup
+$ echo "Meaningful placeholder" > test.java
+$ touch test.java
+```
+
+### 5. Git Stash Usage
+```bash
+git stash push -m "WIP changes"
+git stash list
+git stash apply stash@{0}
+```
+
+### 6. Merge Conflict Resolution
+```bash
+git merge main
+# Resolve conflicts manually
+git add .
+git commit -m "Resolved merge conflict"
+```
+
+---
+
+## 🤖 Automation Testing
+
+Automated tests validate sorting functionality on:
+https://practicesoftwaretesting.com/
+
+Tests can be executed using:
+
+```bash
+mvn test
+```
+
+---
+
+## 🚀 CI/CD Pipeline
+
+GitHub Actions pipeline:
+
+- Installs dependencies
+- Builds project
+- Runs test suite
+- Fails if any test fails
+
+Pipeline triggers:
+- Every push
+- Every Pull Request
+- Merge into `main`
+
+---
+
+## 🔐 Branch Protection Rules
+
+- Pull Requests required before merging
+- CI must pass before merge
+- Direct pushes to `main` are blocked
+
+---
+
+## 📜 Terminal History
+
+```bash
+git log --oneline
 ```
