@@ -46,7 +46,11 @@ git branch -d test
 git push origin --delete test
 ```
 
-### 4. Feature Branch Creation
+### 4. Automation for sorting(ft/pipeline)
 ```bash
-git checkout -b ft/setup
+git checkout -b ft/pipeline
+Initialize Maven:
+mvn archetype:generate.
 ```
+
+
