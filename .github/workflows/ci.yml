@@ -1,16 +1,15 @@
 name: Java CI with Playwright
 
-# Trigger pipeline on any branch push or pull request
 on:
   push:
     branches:
-      - '**'
+      - ft/pipeline
   pull_request:
     branches:
-      - '**'
+      - ft/pipeline
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,34 +17,40 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2️⃣ Setup Java 17
-      - name: Set up Java 17
+      # 2️⃣ Set up Java 17 (LTS)
+      - name: Set up JDK 25
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: '17'
+          distribution: 'temurin'
+          java-version: '25'
           cache: maven
 
-      # 3️⃣ Verify project structure (debugging step)
-      - name: Verify repository files
-        run: ls -R
+      # 3️⃣ Cache Maven dependencies
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-      # 4️⃣ Install Maven dependencies (skip tests for speed)
-      - name: Install dependencies
+      # 4️⃣ Install dependencies (skip tests)
+      - name: Install Maven dependencies
         run: mvn clean install -DskipTests
 
-      # 5️⃣ Install Playwright browsers (needed for Chromium)
+      # 5️⃣ Install Playwright browsers (required for UI tests)
       - name: Install Playwright Browsers
         run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install"
 
-      # 6️⃣ Run tests (TestNG + Playwright)
-      - name: Run Tests
+      # 6️⃣ Run tests
+      - name: Run Maven tests
         run: mvn test
 
-      # 7️⃣ Upload Test Reports (even if tests fail)
-      - name: Upload Surefire Reports
+      # 7️⃣ Upload Playwright report (if generated)
+      - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Test-Reports
-          path: target/surefire-reports/
+          name: playwright-report
+          path: target/playwright-report/
+          retention-days: 30
