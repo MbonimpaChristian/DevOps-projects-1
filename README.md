@@ -101,6 +101,16 @@ $ history >> README.md
 git add README.md
 git commit -m "docs: add terminal history"
 git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 399 bytes | 399.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/MbonimpaChristian/DevOps-projects-1.git
+   6e30358..23af5c3  ft/setup -> ft/setup
+
 ```
 
 
