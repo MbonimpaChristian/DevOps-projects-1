@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="pom" />
+        <module name="DevOps-projects-1" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="pom" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

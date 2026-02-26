@@ -51,6 +51,11 @@ git push origin --delete test
 git checkout -b ft/pipeline
 Initialize Maven:
 mvn archetype:generate.
+Add Playwirght dependency in pom.xl
+Create a test class for sorting functionality and implement test cases.
+Run tests locally to ensure they are working.
+mvn test 
 ```
+
 
 
