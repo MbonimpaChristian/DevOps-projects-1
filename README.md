@@ -98,6 +98,9 @@ git push
 ## 11. Terminal History
 ```bash
 $ history >> README.md
+git add README.md
+git commit -m "docs: add terminal history"
+git push
 ```
 
 
