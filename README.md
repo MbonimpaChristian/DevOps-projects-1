@@ -64,17 +64,23 @@ $ git commit -m "feat(setup): add initial test.java file"
 
 ### 5. Git Stash Usage
 ```bash
-git stash push -m "WIP changes"
+# Make some changes to test.java
+echo "to do the add sorting validation changes" > test.java
+git stash push -m "Added sorting"
 git stash list
+stash@{0}: On ft/setup: Added sorting
 git stash apply stash@{0}
+git add test.java
+git commit -m "feat(setup): add sorting validation changes"
+git status
+git push -u origin ft/setup
 ```
 
 ### 6. Merge Conflict Resolution
 ```bash
-git merge main
+git merge dev
+git merge ft/setup
 # Resolve conflicts manually
-git add .
-git commit -m "Resolved merge conflict"
 ```
 
 ---
