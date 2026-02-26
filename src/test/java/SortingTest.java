@@ -26,50 +26,84 @@
 
 
 import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.SelectOption;
+import com.microsoft.playwright.options.LoadState;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.nio.file.Paths;
-
-import static org.testng.AssertJUnit.assertTrue;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class SortingTest {
 
     @Test
-    public void VerifySorting(){
-        Playwright playwright = Playwright.create();
-        Browser browser = playwright.chromium().launch(
-                new BrowserType.LaunchOptions().setHeadless(false)
-        );
-        BrowserContext context = browser.newContext(
-                new Browser.NewContextOptions()
-                        .setHttpCredentials("admin", "admin")
-        );
-        Page page = context.newPage();
-        page.navigate("https://practicesoftwaretesting.com/");
+    public void verifySorting() {
 
-        Locator sortTools = page.locator("[data-test='sort']");
-        sortTools.selectOption(new SelectOption().setValue("name,asc"));
-        sortTools.click();
+        System.out.println("==== TEST STARTED ====");
 
-        page.waitForSelector(".card-body h5");
-        Locator cardTitle = page.locator(".card-body h5");
+        try (Playwright playwright = Playwright.create()) {
 
-        System.out.println("The total cards are: " + cardTitle.count());
-        cardTitle.nth(0).isVisible();
-        page.waitForTimeout(4000);
-        String firstTool = cardTitle.nth(0).innerText();
-        System.out.println("The first one: " + firstTool);
-        page.waitForTimeout(4000);
-        sortTools.selectOption(new SelectOption().setValue("name,desc"));
-        System.out.println("The total cards are: " + cardTitle.count());
-        cardTitle.nth(0).isVisible();
+            Browser browser = playwright.chromium()
+                    .launch(new BrowserType.LaunchOptions()
+                            .setHeadless(false)
+                            .setSlowMo(700));   // Slow for visibility
 
-        page.waitForTimeout(4000);
-        System.out.println("The first one: " + cardTitle.nth(0).innerText());
-        page.waitForTimeout(4000);
+            BrowserContext context = browser.newContext();
+            Page page = context.newPage();
 
+            System.out.println("Opening website...");
+            page.navigate("https://practicesoftwaretesting.com/");
+            page.waitForLoadState(LoadState.NETWORKIDLE);
 
+            Locator products = page.locator(".card-body h5");
+            products.first().waitFor();
+
+            System.out.println("Page loaded successfully.");
+
+            // ========================
+            // SORT ASCENDING
+            // ========================
+            System.out.println("Selecting sorting: Name A-Z");
+
+            page.selectOption("[data-test='sort']", "name,asc");
+            page.waitForLoadState(LoadState.NETWORKIDLE);
+            page.waitForTimeout(1500); // allow visible change
+
+            List<String> actualAsc = products.allTextContents();
+            System.out.println("Products after A-Z sort:");
+            actualAsc.forEach(System.out::println);
+
+            List<String> expectedAsc = new ArrayList<>(actualAsc);
+            Collections.sort(expectedAsc);
+
+            System.out.println("Validating ascending order...");
+            Assert.assertEquals(actualAsc, expectedAsc, "Ascending sort failed");
+            System.out.println("Ascending sorting validated successfully ✅");
+
+            // ========================
+            // SORT DESCENDING
+            // ========================
+            System.out.println("Selecting sorting: Name Z-A");
+
+            page.selectOption("[data-test='sort']", "name,desc");
+            page.waitForLoadState(LoadState.NETWORKIDLE);
+            page.waitForTimeout(1500);
+
+            List<String> actualDesc = products.allTextContents();
+            System.out.println("Products after Z-A sort:");
+            actualDesc.forEach(System.out::println);
+
+            List<String> expectedDesc = new ArrayList<>(actualDesc);
+            expectedDesc.sort(Collections.reverseOrder());
+
+            System.out.println("Validating descending order...");
+            Assert.assertEquals(actualDesc, expectedDesc, "Descending sort failed");
+            System.out.println("Descending sorting validated successfully ✅");
+
+            System.out.println("==== TEST COMPLETED SUCCESSFULLY ====");
+
+            page.waitForTimeout(4000); // keep browser open to observe
+            browser.close();
+        }
     }
 }

@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d603e56c-4e53-407a-8086-aeb30e89252b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/SortingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SortingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SortingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/SortingTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/SortingTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +60,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "TestNG.SortingTest.VerifySorting.executor": "Run",
     "TestNG.SortingTest.executor": "Run",
+    "TestNG.SortingTest.verifySorting.executor": "Run",
     "git-widget-placeholder": "ft/pipeline",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -75,7 +73,7 @@
       <recent name="C:\Users\Chris\IdeaProjects\DevOps-projects-1" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.SortingTest.VerifySorting">
+  <component name="RunManager" selected="TestNG.SortingTest">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="pom" />
       <method v="2">
@@ -110,10 +108,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SortingTest.verifySorting" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="DevOps-projects-1" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="SortingTest" />
+      <option name="METHOD_NAME" value="verifySorting" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="TestNG.SortingTest.VerifySorting" />
         <item itemvalue="TestNG.SortingTest" />
+        <item itemvalue="TestNG.SortingTest.verifySorting" />
+        <item itemvalue="TestNG.SortingTest.VerifySorting" />
       </list>
     </recent_temporary>
   </component>
