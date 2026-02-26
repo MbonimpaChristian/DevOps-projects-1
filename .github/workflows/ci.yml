@@ -13,11 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2️⃣ Set up Java 17 (LTS)
       - name: Set up JDK 25
         uses: actions/setup-java@v4
         with:
@@ -25,7 +23,6 @@ jobs:
           java-version: '25'
           cache: maven
 
-      # 3️⃣ Cache Maven dependencies
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
@@ -34,19 +31,27 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # 4️⃣ Install dependencies (skip tests)
       - name: Install Maven dependencies
         run: mvn clean install -DskipTests
 
-      # 5️⃣ Install Playwright browsers (required for UI tests)
+      # ✅ Install Linux dependencies required by Playwright
+      - name: Install Playwright Linux dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwoff2-1 libvpx7 libevent-2.1-7 libopus0 \
+            libgstreamer1.0-0 libgstreamer-plugins-base1.0-0 \
+            libharfbuzz-icu0 libsecret-1-0 libhyphen0 libglib2.0-0 \
+            libnss3 libatk1.0-0 libx11-xcb1 libxcomposite1 libxdamage1 \
+            libxrandr2 libasound2 libpangocairo-1.0-0 libcups2 libdrm2 \
+            libgbm1 libgtk-3-0 libxshmfence1
+
       - name: Install Playwright Browsers
         run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install"
 
-      # 6️⃣ Run tests
       - name: Run Maven tests
         run: mvn test
 
-      # 7️⃣ Upload Playwright report (if generated)
       - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v4
