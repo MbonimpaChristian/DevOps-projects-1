@@ -45,8 +45,8 @@ public class SortingTest {
 
             Browser browser = playwright.chromium()
                     .launch(new BrowserType.LaunchOptions()
-                            .setHeadless(false)
-                            .setSlowMo(700));   // Slow for visibility
+                            .setHeadless(true));
+//                            .setSlowMo(700));   // Slow for visibility
 
             BrowserContext context = browser.newContext();
             Page page = context.newPage();
