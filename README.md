@@ -57,7 +57,7 @@ Run tests locally to ensure they are working.
 mvn test 
 git add .
 git commit -m "feat: add sorting test cases"
-git push -u origin ft/pipeline
+git push -u origin ft/pipeline.
 
 ```
 
